@@ -15,7 +15,7 @@ public class Frame extends JFrame {
     private void addComponents(){
         ViewPanel mPanel=new ViewPanel();
         this.getContentPane().add(mPanel);
-        ButtonsPanel bPanel=new ButtonsPanel();
+        ButtonsPanel bPanel=new ButtonsPanel(mPanel);
         this.getContentPane().add(bPanel);
 
 

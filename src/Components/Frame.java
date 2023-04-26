@@ -1,7 +1,6 @@
 package Components;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class Frame extends JFrame {
     public Frame(){
@@ -14,7 +13,7 @@ public class Frame extends JFrame {
         addComponents();
     }
     private void addComponents(){
-        MainPanel mPanel=new MainPanel();
+        ViewPanel mPanel=new ViewPanel();
         this.getContentPane().add(mPanel);
         ButtonsPanel bPanel=new ButtonsPanel();
         this.getContentPane().add(bPanel);

@@ -6,7 +6,7 @@ public class Frame extends JFrame {
     public Frame(){
         this.setBounds(200,200,415,628);
         this.setDefaultCloseOperation(3);
-        this.setTitle("Kalkulator");
+        this.setTitle("MArek Kuźbiński");
         this.setResizable(false);
         this.setVisible(true);
         this.setLayout(null);

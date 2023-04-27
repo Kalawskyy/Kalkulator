@@ -25,7 +25,7 @@ public class ViewPanel extends JPanel {
 
 
     ViewPanel() {
-        this.setBackground(Color.GRAY);
+        this.setBackground(Color.gray);
         this.setLayout(null);
         setBounds(0, 0, 400, 100);
         this.addComponents();

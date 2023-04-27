@@ -1,4 +1,5 @@
 package Components;
+import Components.Math.MathLineInterpreter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +12,7 @@ public class ButtonsPanel extends JPanel implements ActionListener {
     private ViewPanel viewPanel;
 
     ButtonsPanel(ViewPanel vpanel) {
-        this.setBackground(Color.DARK_GRAY);
+        this.setBackground(Color.darkGray);
         this.setBounds(0, 100, 400, 500);
         this.setLayout(new GridLayout(6, 4, 15, 15));
         this.addComponents();
@@ -29,7 +30,7 @@ public class ButtonsPanel extends JPanel implements ActionListener {
         JButton t = new JButton(name);
         t.addActionListener(this);
         t.setActionCommand(name);
-        t.setBackground(Color.LIGHT_GRAY);
+        t.setBackground(Color.lightGray);
         return t;
     }
 
@@ -103,7 +104,8 @@ public class ButtonsPanel extends JPanel implements ActionListener {
             viewPanel.setInLine(nameButton[21]);
         }
         if (cmd.equals(nameButton[22])) {
-
+            MathLineInterpreter mline=new MathLineInterpreter();
+           viewPanel.setOutLine(mline.result(viewPanel.getInLine()));
         }
 
 

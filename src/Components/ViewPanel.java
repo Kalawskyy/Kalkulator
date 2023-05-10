@@ -1,26 +1,36 @@
 package Components;
 
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class ViewPanel extends JPanel {
+public class ViewPanel extends JPanel implements KeyListener {
 
+    private String[] nameButton = {"C", "CA", "√", "%", "MRC", "M-", "M+", "/", "7", "8", "9", "*", "4", "5", "6", "-", "1", "2", "3", "+", "0", ".", "="};
+    private JLabel insertField;
+    private JLabel result;
 
-    private JTextField insertField, result;
-    private String inLine="";
-
-    public String getInLine() {
-        return inLine;
+    public String[] getLines() {
+        return this.lines;
     }
 
-    public void setInLine(String inLine) {
-        this.inLine =this.inLine+""+inLine;
-        this.insertField.setText(this.inLine);
+    private String lines[] = {"", "", ""};
+
+    public Boolean[] getBlines() {
+        return this.blines;
     }
 
+    private Boolean blines[] = {false, false, false};
+
+
+    public JLabel getInLine() {
+        return this.insertField;
+    }
 
     public void setOutLine(String outLine) {
-         this.result.setText(outLine);
+        this.result.setText(outLine);
     }
 
 
@@ -33,13 +43,60 @@ public class ViewPanel extends JPanel {
     }
 
     private void addComponents() {
-        this.insertField = new JTextField();
+        this.insertField = new JLabel(" ");
         this.insertField.setBounds(20, 10, 360, 35);
+        this.insertField.setBorder(BorderFactory.createEmptyBorder(6, 10, 6, 10));
+        this.insertField.setOpaque(true);
+        this.insertField.setBackground(Color.white);
         this.add(insertField);
-        this.result = new JTextField("");
+        this.result = new JLabel(" ");
         this.result.setBounds(20, 55, 360, 35);
-        this.result.setEnabled(false);
+        this.result.setBorder(BorderFactory.createEmptyBorder(6, 10, 6, 10));
+        this.result.setOpaque(true);
+        this.result.setBackground(Color.white);
         this.add(result);
+
+
     }
 
+    ;
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_9) {
+            insertField.setText(insertField.getText() + "9");
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
+
+    String correctInput(String inputLine, String newCharacter) {
+        //TODO correctInput - Trzeba dokończyć
+        String temp = inputLine;
+        Boolean point = false;
+        try {
+            for (int i = 0; i < temp.length(); i++) {
+                boolean b = point == false;
+                if (temp.charAt(i) == '.' && b) {
+                    point = true;
+                }
+                if (temp.charAt(i) == '.' && point == true) {
+                    return inputLine;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return inputLine;
+        }
+
+        return inputLine;
+    }
 }

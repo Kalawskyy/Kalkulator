@@ -4,16 +4,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 public class ButtonsPanel extends JPanel implements ActionListener {
-    private String nameButton[] = {"C_line", "C_all", "√", "%", "MRC", "M-", "M+", "/", "7", "8", "9", "*", "4", "5", "6", "-", "1", "2", "3", "+", "Un/Lock", "0", ".", "="};
-    private JLabel inLabel;
-    private String lines[];
-    private Boolean blines[];
+    private final String[] nameButton = {"C_line", "C_all", "√", "%", "MRC", "M-", "M+", "/", "7", "8", "9", "*", "4", "5", "6", "-", "1", "2", "3", "+", "Un/Lock", "0", ".", "="};
+    private final JLabel inLabel;
+    private final String[] lines;
+    private final Boolean[] blines;
 
     private Boolean lockKB;
 
-    ButtonsPanel(JLabel inLabel, Boolean lockKB, String lines[], Boolean blines[]) {
+    ButtonsPanel(JLabel inLabel, Boolean lockKB, String[] lines, Boolean[] blines) {
         this.setBackground(Color.darkGray);
         this.setBounds(0, 100, 400, 500);
         this.setLayout(new GridLayout(6, 4, 15, 15));
@@ -43,11 +44,7 @@ public class ButtonsPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String cmd = e.getActionCommand();
         if (cmd.equals("Un/Lock")) {
-            if (lockKB == true) {
-                lockKB = false;
-            } else {
-                lockKB = true;
-            }
+            lockKB = !lockKB;
         }
         for (String a : nameButton) {
             if (cmd.equals(a)) {
@@ -60,25 +57,31 @@ public class ButtonsPanel extends JPanel implements ActionListener {
     }
 
     String correctInput(String inputLine, String newCharacter) {
-        String temp = inputLine;
-        Boolean point = false;
+        boolean point = false;
         try {
-            for (int i = 0; i < temp.length(); i++) {
-                boolean b = point == false;
-                System.out.println(temp.charAt(i));
-                if (temp.charAt(i) == '.' && b) {
+            for (int i = 0; i < inputLine.length(); i++) {
+                boolean b = !point;
+                System.out.println(inputLine.charAt(i));
+                if (inputLine.charAt(i) == '.' && b) {
                     point = true;
                 }
 
 
             }
-            if (temp.length() >= 30 || (point == true && newCharacter == ".") || (point == false && temp.length() == 0 && newCharacter == ".")) {
+            if (inputLine.length() >= 30 || (point && Objects.equals(newCharacter, ".")) || (!point && inputLine.length() == 0 && Objects.equals(newCharacter, "."))) {
                 return inputLine;
             } else if (newCharacter.length() != 1) {
                 return inputLine;
+            } else if (newCharacter.equals("*") || newCharacter.equals("/") || newCharacter.equals("-") || newCharacter.equals("+") || newCharacter.equals("√")) {
+                if (!blines[1]){
+                    blines[0]=true;
+                    lines[0]=inputLine;
+                    return lines[1]=lines[1]+newCharacter;
+                }
+                return inputLine;
             } else {
                 System.out.println("Kevin homo");
-                return temp + newCharacter;
+                return inputLine + newCharacter;
             }
 
         } catch (Exception e) {

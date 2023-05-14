@@ -1,5 +1,7 @@
 package Components;
 
+import Components.Math.MathLineInterpreter;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -65,23 +67,39 @@ public class ButtonsPanel extends JPanel implements ActionListener {
                 if (inputLine.charAt(i) == '.' && b) {
                     point = true;
                 }
-
-
             }
-            if (inputLine.length() >= 30 || (point && Objects.equals(newCharacter, ".")) || (!point && inputLine.length() == 0 && Objects.equals(newCharacter, "."))) {
+            if ((inputLine.length() >= 30 || (point && Objects.equals(newCharacter, ".")) || (!point && inputLine.length() == 0 && Objects.equals(newCharacter, "."))) && !blines[1]) {
                 return inputLine;
-            } else if (newCharacter.length() != 1) {
-                return inputLine;
-            } else if (newCharacter.equals("*") || newCharacter.equals("/") || newCharacter.equals("-") || newCharacter.equals("+") || newCharacter.equals("√")) {
-                if (!blines[1]){
-                    blines[0]=true;
-                    lines[0]=inputLine;
-                    return lines[1]=lines[1]+newCharacter;
+            } else if (newCharacter.equals("C_line")) {
+                System.out.println("c_line");
+                return "";
+            } else if (newCharacter.equals("*") || newCharacter.equals("/") || newCharacter.equals("-") || newCharacter.equals("+") || newCharacter.equals("√") || newCharacter.equals("%")) {
+                if (!blines[1]) {
+                    if (!blines[0]) {
+                        blines[0] = true;
+                        lines[0] = inputLine;
+                        return lines[1] = newCharacter;
+                    } else {
+                        lines[1] = lines[1] + newCharacter;
+                        return String.valueOf(lines[1].charAt(lines[1].length() - 1));
+                    }
                 }
                 return inputLine;
+            } else if (newCharacter.equals("=")) {
+                lines[2]=inputLine;
+                MathLineInterpreter tMath= new MathLineInterpreter();
+
+                return tMath.result(inputLine);
             } else {
-                System.out.println("Kevin homo");
-                return inputLine + newCharacter;
+                if (blines[0] && !blines[1]) {
+                    blines[1] = true;
+                    inputLine = "";
+                    return inputLine + newCharacter;
+                }else{
+                    System.out.println("Kevin homo");
+                    return inputLine+newCharacter ;
+                }
+
             }
 
         } catch (Exception e) {
@@ -89,8 +107,6 @@ public class ButtonsPanel extends JPanel implements ActionListener {
             System.out.println("Kevin homo1");
             return inputLine;
         }
-
-
     }
 }
 

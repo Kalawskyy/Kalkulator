@@ -1,8 +1,10 @@
 package Components.Math;
 
 public class MathLineInterpreter {
-    public String result(String line) {
-        String result = line;
+    private String lines[];
+    public String result(String lines[]) {
+        this.lines=lines;
+        String result ="";
 
         return result;
     }

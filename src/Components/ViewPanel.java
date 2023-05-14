@@ -28,8 +28,8 @@ public class ViewPanel extends JPanel implements KeyListener {
         return this.insertField;
     }
 
-    public void setOutLine(String outLine) {
-        this.result.setText(outLine);
+    public JLabel setOutLine() {
+        return this.result;
     }
 
 

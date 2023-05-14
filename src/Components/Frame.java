@@ -23,7 +23,7 @@ public class Frame extends JFrame implements KeyListener {
     private void addComponents() {
         mPanel = new ViewPanel();
         this.getContentPane().add(mPanel);
-        ButtonsPanel bPanel = new ButtonsPanel(mPanel.getInLine(), lockKeyBoard, mPanel.getLines(), mPanel.getBlines());
+        ButtonsPanel bPanel = new ButtonsPanel(mPanel.getInLine(),mPanel.setOutLine() ,lockKeyBoard, mPanel.getLines(), mPanel.getBlines());
         this.getContentPane().add(bPanel);
         this.addKeyListener(this);
 

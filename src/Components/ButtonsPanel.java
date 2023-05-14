@@ -10,13 +10,13 @@ import java.util.Objects;
 
 public class ButtonsPanel extends JPanel implements ActionListener {
     private final String[] nameButton = {"C_line", "C_all", "√", "%", "MRC", "M-", "M+", "/", "7", "8", "9", "*", "4", "5", "6", "-", "1", "2", "3", "+", "Un/Lock", "0", ".", "="};
-    private final JLabel inLabel;
+    private final JLabel inLabel,outLabel;
     private final String[] lines;
     private final Boolean[] blines;
 
     private Boolean lockKB;
 
-    ButtonsPanel(JLabel inLabel, Boolean lockKB, String[] lines, Boolean[] blines) {
+    ButtonsPanel(JLabel inLabel,JLabel outLabel, Boolean lockKB, String[] lines, Boolean[] blines) {
         this.setBackground(Color.darkGray);
         this.setBounds(0, 100, 400, 500);
         this.setLayout(new GridLayout(6, 4, 15, 15));
@@ -26,6 +26,7 @@ public class ButtonsPanel extends JPanel implements ActionListener {
         this.lockKB = lockKB;
         this.lines = lines;
         this.blines = blines;
+        this.outLabel=outLabel;
     }
 
     private void addComponents() {
@@ -88,8 +89,9 @@ public class ButtonsPanel extends JPanel implements ActionListener {
             } else if (newCharacter.equals("=")) {
                 lines[2]=inputLine;
                 MathLineInterpreter tMath= new MathLineInterpreter();
+                 outLabel.setText(tMath.result(lines));
 
-                return tMath.result(inputLine);
+                return "";
             } else {
                 if (blines[0] && !blines[1]) {
                     blines[1] = true;
